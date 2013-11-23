@@ -30,7 +30,7 @@ Exclamation mark      !    Grave
 Apostrophe            '    Acute accent
 Greater-Than sign     >    Circumflex accent
 Question mark         ?    Tilde
-Hyphen-Minus          -    Macron
+Hyphen-Minus          \-    Macron
 Left parenthesis      (    Breve
 Full stop             .    Dot above
 Colon                 :    Diaeresis
@@ -44,9 +44,9 @@ Zero                  0    Ring above
 Two                   2    Hook
 Nine                  9    Horn
 Equals                =    Cyrillic
-Asterisk              *    Greek
+Asterisk              \*    Greek
 Percent sign          %    Greek/Cyrillic special
-Plus                  +    smalls: Arabic, capitals: Hebrew
+Plus                  \+    smalls: Arabic, capitals: Hebrew
 Three                 3    some Latin/Greek/Cyrillic letters
 Four                  4    Bopomofo
 Five                  5    Hiragana
@@ -61,7 +61,7 @@ Here follows a complete list:
 ==== ======= ====  ===== =====================================================
 char digraph hex   dec   official name
 ==== ======= ====  ===== =====================================================
-\    SP      0x20   32   SPACE
+\    ``SP``  0x20   32   SPACE
 #    Nb      0x23   35   NUMBER SIGN
 $    DO      0x24   36   DOLLAR SIGN
 @    At      0x40   64   COMMERCIAL AT
