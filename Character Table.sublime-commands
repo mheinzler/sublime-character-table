@@ -1,0 +1,14 @@
+[
+	{
+		"command": "unicode_lookup",
+		"caption": "Character Table: Lookup Unicode Character"
+	},
+	{
+		"command": "unicode_lookup",
+		"caption": "Character Table: Insert Unicode Character"
+	},
+	{
+		"command": "digraph_toggle",
+		"caption": "Character Table: Toggle Digraph Mode"
+	}
+]

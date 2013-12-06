@@ -1,5 +1,6 @@
 [
-	{ "keys": ["ctrl+k", " ", " "], "command": "insert", "args": {"characters": "⋯"} },
+	{ "keys": ["ctrl+k", ".", " "], "command": "insert", "args": {"characters": "⋯"} },
+	{ "keys": ["ctrl+k", " ", "."], "command": "insert", "args": {"characters": "⋯"} },
 	{ "keys": ["ctrl+k", "!", "!"], "command": "insert", "args": {"characters": "|"} },
 	{ "keys": ["ctrl+k", "!", "'"], "command": "insert", "args": {"characters": "`"} },
 	{ "keys": ["ctrl+k", "!", "("], "command": "insert", "args": {"characters": "{"} },
@@ -2345,5 +2346,9 @@
 	{ "keys": ["ctrl+k", "Z", "o"], "command": "insert", "args": {"characters": "ゾ"} },
 	{ "keys": ["ctrl+k", "Z", "R"], "command": "insert", "args": {"characters": "▧"} },
 	{ "keys": ["ctrl+k", "z", "u"], "command": "insert", "args": {"characters": "ず"} },
-	{ "keys": ["ctrl+k", "Z", "u"], "command": "insert", "args": {"characters": "ズ"} }
+	{ "keys": ["ctrl+k", "Z", "u"], "command": "insert", "args": {"characters": "ズ"} },
+	{ "keys": ["ctrl+k", "ctrl+d"], "command": "digraph_lookup" },
+	{ "keys": ["ctrl+k", "ctrl+t"], "command": "digraph_toggle" },
+	{ "keys": ["ctrl+k", "ctrl+l"], "command": "unicode_lookup" }
+
 ]

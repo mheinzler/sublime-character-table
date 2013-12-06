@@ -1,0 +1,39 @@
+[
+    {
+        "caption": "Preferences",
+        "mnemonic": "n",
+        "id": "preferences",
+        "children":
+        [
+            {
+                "caption": "Package Settings",
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children":
+                [
+                    {
+                        "caption": "Character Table",
+                        "children":
+                        [
+                            {
+                                "command": "open_file",
+                                "args": {"file": "${packages}/Character Table/README.rst"},
+                                "caption": "README"
+                            },
+                            { "caption": "-" },
+                            {
+                                "command": "digraph_toggle",
+                                "caption": "Digraph Mode",
+                                "checkbox": true
+                            },
+                            {
+                                "command": "unicode_lookup",
+                                "caption": "Lookup Unicode Character"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
