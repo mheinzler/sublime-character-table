@@ -25,7 +25,10 @@ class UnicodeLookupCommand(sublime_plugin.WindowCommand):
 
         preview = self.window.create_output_panel("unicode_preview")
 
-        preview.settings().set("font_size", 72)
+        settings = sublime.load_settings('Character Table.sublime-settings')
+        font_size = settings.get('font_size', 72)
+
+        preview.settings().set("font_size", font_size)
         self.window.run_command("show_panel", {"panel": "output.unicode_preview"})
 
         def on_highlighted(index):
@@ -141,10 +144,8 @@ def load_character_table():
             sys.stderr.write("Error processing %s: %s\n" % (row, e))
             continue
 
-ADD_REVERSED_MNEMONICS = True
 
-def plugin_loaded():
-    load_character_table()
+def create_default_keymap():
     user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
 
     if not os.path.exists(user_dir):
@@ -163,6 +164,10 @@ def plugin_loaded():
 
     mnemonics = set(RFC1345_MNEMONICS.values())
 
+    settings = sublime.load_settings('Character Table.sublime-settings')
+
+    ADD_REVERSED_MNEMONICS = settings.get('two_char_mnemonics_reversed', True)
+
     for k,v in RFC1345_MNEMONICS.items():
 
         if ADD_REVERSED_MNEMONICS:
@@ -177,6 +182,10 @@ def plugin_loaded():
     with open(fn+'.tmp', "w") as f:
         json.dump(keymap, f, indent=4, ensure_ascii=False)
     os.rename(fn+'.tmp', fn)
+
+def plugin_loaded():
+    load_character_table()
+    create_default_keymap()
 
 if not ST3:
     plugin_loaded()
