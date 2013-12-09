@@ -12,7 +12,7 @@ you can find any unicode character (except those categorized as "Other").  Chara
 - Mnemonic (if present), see `Character Mnemonics ("Digraphs")`_
 - Unicode Character Name
 
-There is also a little preview for the character opened.
+There is also a little preview for selected character.
 
 Character Mnemonics ("Digraphs")
 --------------------------------
