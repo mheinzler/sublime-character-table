@@ -39,8 +39,6 @@ class UnicodeLookupCommand(sublime_plugin.WindowCommand):
         self.window.show_quick_panel(UNICODE_DATA, on_done, 
             sublime.MONOSPACE_FONT, -1, on_highlighted)
 
-
-
 ALL_DIGRAPH = False
 
 class DigraphToggleCommand(sublime_plugin.ApplicationCommand):
@@ -53,7 +51,7 @@ class DigraphToggleCommand(sublime_plugin.ApplicationCommand):
 
 def toggle_digraph(view, set_state=True):
     dir = sublime.packages_path()
-    user_digraph_path = os.path.join(dir, 'User', 'Character Table')
+    user_digraph_path = os.path.join(dir, 'User', 'Character Table', 'Digraph')
     extreme_digraph = os.path.join(user_digraph_path, 'Default.sublime-keymap')
 
     global ALL_DIGRAPH
@@ -66,19 +64,15 @@ def toggle_digraph(view, set_state=True):
 
     elif ST3:
         s = sublime.load_binary_resource('Packages/Character Table/Extreme-Keymap.json')
-        os.mkdir(user_digraph_path)
+        if not os.path.exists(user_digraph_path):
+            os.makedirs(user_digraph_path)
         with open(extreme_digraph, 'wb') as f:
             f.write(s)
         if set_state:
             ALL_DIGRAPH = True
 
     else:
-        import shutil
-        os.mkdir(user_digraph_path)
-        shutil.copy(
-            os.path.join(dir, 'Character Table', 'Extreme-Keymap.json'),
-            extreme_digraph
-            )
+        create_mnemonic_keymap(user_digraph_path, keys=[])
         if set_state:
             ALL_DIGRAPH = True
 
@@ -145,15 +139,16 @@ def load_character_table():
             continue
 
 
-def create_default_keymap():
-    user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+def create_mnemonic_keymap(dirname, keys=["ctrl+k"]):
+    #user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+    user_dir = dirname
 
     if not os.path.exists(user_dir):
         os.makedirs(user_dir)
 
     def makekeydef(chars, unichr):
         return {
-            "keys": ["ctrl+k"]+[x for x in chars],
+            "keys": keys+[x for x in chars],
             "command": "insert",
             "args": {"characters": unichr},
         }
@@ -185,7 +180,8 @@ def create_default_keymap():
 
 def plugin_loaded():
     load_character_table()
-    create_default_keymap()
+    user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+    create_mnemonic_keymap(user_dir)
 
 if not ST3:
     plugin_loaded()
