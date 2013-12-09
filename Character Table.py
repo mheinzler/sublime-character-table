@@ -23,21 +23,26 @@ class UnicodeLookupCommand(sublime_plugin.WindowCommand):
             if index > -1:
                 self.window.active_view().run_command("insert", {"characters": UNICODE_DATA[index][0]})
 
-        preview = self.window.create_output_panel("unicode_preview")
+        if ST3:
+            preview = self.window.create_output_panel("unicode_preview")
 
-        settings = sublime.load_settings('Character Table.sublime-settings')
-        font_size = settings.get('font_size', 72)
+            settings = sublime.load_settings('Character Table.sublime-settings')
+            font_size = settings.get('font_size', 72)
 
-        preview.settings().set("font_size", font_size)
-        self.window.run_command("show_panel", {"panel": "output.unicode_preview"})
+            preview.settings().set("font_size", font_size)
+            self.window.run_command("show_panel", {"panel": "output.unicode_preview"})
 
-        def on_highlighted(index):
-            char = UNICODE_DATA[index][0]
-            preview.run_command("select_all")
-            preview.run_command("insert", {"characters": char})
+            def on_highlighted(index):
+                char = UNICODE_DATA[index][0]
+                preview.run_command("select_all")
+                preview.run_command("insert", {"characters": char})
 
-        self.window.show_quick_panel(UNICODE_DATA, on_done, 
-            sublime.MONOSPACE_FONT, -1, on_highlighted)
+            self.window.show_quick_panel(UNICODE_DATA, on_done, 
+                sublime.MONOSPACE_FONT, -1, on_highlighted)
+        else:
+            self.window.show_quick_panel(UNICODE_DATA, on_done, 
+                sublime.MONOSPACE_FONT)
+
 
 ALL_DIGRAPH = False
 
@@ -175,7 +180,11 @@ def create_mnemonic_keymap(dirname, keys=["ctrl+k"]):
 
     fn = os.path.join(user_dir, "Default.sublime-keymap")
     with open(fn+'.tmp', "w") as f:
-        json.dump(keymap, f, indent=4, ensure_ascii=False)
+        if ST3:
+            json.dump(keymap, f, indent=4, ensure_ascii=False)
+        else:
+            json.dump(keymap, f, indent=4, ensure_ascii=True)
+
     os.rename(fn+'.tmp', fn)
 
 def plugin_loaded():
