@@ -181,7 +181,7 @@ def create_mnemonic_keymap(dirname, keys=["ctrl+k"]):
     fn = os.path.join(user_dir, "Default.sublime-keymap")
     with open(fn+'.tmp', "w") as f:
         if ST3:
-            json.dump(keymap, f, indent=4, ensure_ascii=False)
+            json.dump(keymap, f, indent=4, ensure_ascii=True)
         else:
             json.dump(keymap, f, indent=4, ensure_ascii=True)
 

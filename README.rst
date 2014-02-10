@@ -48,4 +48,23 @@ I started with a manual created sublime-keymap, but then I found out, that it is
 and rfc1345.
 
 
+Changes
+-------
 
+2014-02-10
+    - fix issue #1, character table fails encoding a character
+      on windows.
+
+
+Author
+------
+
+Kay-Uwe (Kiwi) Lorenz <kiwi@franka.dyndns.org> (http://quelltexter.org)
+
+Support my work on `Sublime Text Plugins`_: `Donate via Paypal`_
+
+.. _Sublime Text Plugins:
+    https://sublime.wbond.net/browse/authors/Kay-Uwe%20%28Kiwi%29%20Lorenz%20%28klorenz%29
+    
+.. _Donate via Paypal:
+    https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WYGR49LEGL9C8
