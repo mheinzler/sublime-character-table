@@ -51,6 +51,11 @@ and rfc1345.
 Changes
 -------
 
+2014-06-06
+    - fix issue #2: Package uninstaller leaves diglyph keys installed
+
+      Remove dynamically created keymaps on package unload.
+
 2014-02-10
     - fix issue #1, character table fails encoding a character
       on windows.

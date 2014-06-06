@@ -192,5 +192,13 @@ def plugin_loaded():
     user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
     create_mnemonic_keymap(user_dir)
 
+def plugin_unloaded():
+    user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+    import shutil
+    shutil.rmtree(user_dir)
+
 if not ST3:
     plugin_loaded()
+
+    def unload_handler():
+        plugin_unloaded()
