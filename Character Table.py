@@ -188,7 +188,7 @@ def create_mnemonic_keymap(dirname, keys=["ctrl+k"]):
         else:
             json.dump(keymap, f, indent=4, ensure_ascii=True)
 
-    os.rename(fn+'.tmp', fn)
+    os.replace(fn+'.tmp', fn)
 
 def plugin_loaded():
     load_character_table()
