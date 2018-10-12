@@ -1,19 +1,22 @@
 import sublime_plugin, sublime, os, sys, json
 ST3 = sublime.version() >= '3000'
 
+# find the actual name of this plugin
+plugin_name = os.path.basename(os.path.dirname(__file__))
+
 def load_resource(name, encoding="utf-8"):
     if ST3:
-        return sublime.load_resource("Packages/Character Table/"+name)
+        return sublime.load_resource("Packages/" + plugin_name + "/"+name)
     else:
-        fn = os.path.join(sublime.packages_path(), 'Character Table', name)
+        fn = os.path.join(sublime.packages_path(), plugin_name, name)
         with open(fn, "r") as f:
             return f.read().decode(encoding)
 
 def load_binary_resource(name):
     if ST3:
-        return sublime.load_binary_resource("Packages/Character Table/"+name)
+        return sublime.load_binary_resource("Packages/" + plugin_name + "/"+name)
     else:
-        fn = os.path.join(sublime.packages_path(), 'Character Table', name)
+        fn = os.path.join(sublime.packages_path(), plugin_name, name)
         with open(fn, "rb") as f:
             return f.read()
 
@@ -37,10 +40,10 @@ class UnicodeLookupCommand(sublime_plugin.WindowCommand):
                 preview.run_command("select_all")
                 preview.run_command("insert", {"characters": char})
 
-            self.window.show_quick_panel(UNICODE_DATA, on_done, 
+            self.window.show_quick_panel(UNICODE_DATA, on_done,
                 sublime.MONOSPACE_FONT, -1, on_highlighted)
         else:
-            self.window.show_quick_panel(UNICODE_DATA, on_done, 
+            self.window.show_quick_panel(UNICODE_DATA, on_done,
                 sublime.MONOSPACE_FONT)
 
 
@@ -56,7 +59,7 @@ class DigraphToggleCommand(sublime_plugin.ApplicationCommand):
 
 def toggle_digraph(view, set_state=True):
     dir = sublime.packages_path()
-    user_digraph_path = os.path.join(dir, 'User', 'Character Table', 'Digraph')
+    user_digraph_path = os.path.join(dir, 'User', plugin_name, 'Digraph')
     extreme_digraph = os.path.join(user_digraph_path, 'Default.sublime-keymap')
 
     global ALL_DIGRAPH
@@ -68,7 +71,7 @@ def toggle_digraph(view, set_state=True):
             ALL_DIGRAPH = False
 
     elif ST3:
-        s = sublime.load_binary_resource('Packages/Character Table/Extreme-Keymap.json')
+        s = sublime.load_binary_resource('Packages/' + plugin_name + '/Extreme-Keymap.json')
         if not os.path.exists(user_digraph_path):
             os.makedirs(user_digraph_path)
         with open(extreme_digraph, 'wb') as f:
@@ -145,7 +148,7 @@ def load_character_table():
 
 
 def create_mnemonic_keymap(dirname, keys=["ctrl+k"]):
-    #user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+    #user_dir = os.path.join(sublime.packages_path(), 'User', plugin_name, "Default")
     user_dir = dirname
 
     if not os.path.exists(user_dir):
@@ -189,11 +192,11 @@ def create_mnemonic_keymap(dirname, keys=["ctrl+k"]):
 
 def plugin_loaded():
     load_character_table()
-    user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+    user_dir = os.path.join(sublime.packages_path(), 'User', plugin_name, "Default")
     create_mnemonic_keymap(user_dir)
 
 def plugin_unloaded():
-    user_dir = os.path.join(sublime.packages_path(), 'User', "Character Table", "Default")
+    user_dir = os.path.join(sublime.packages_path(), 'User', plugin_name, "Default")
     import shutil
     shutil.rmtree(user_dir)
 
